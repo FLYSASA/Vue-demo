@@ -752,3 +752,19 @@ export default{
 }
 ```
 
+> 总结:
+- 套路1: 刚开始不熟悉的话,可以用最丑的代码实现基本的功能,比如写6个li,每个li都绑定v-bind.
+1. 常用的v-bind的绑定格式: `v-bind:class="{active:保尔值或者表达式运算返回保尔值}"`,前提在scss中定义好active的样式.这样当为真时候就能显示active样式.
+2. 常用的`v-on:click="currenTab = 1"`(点击赋值)  与`v-bind:class="{active:currentTab===1}" ` 搭配使用,这样点击就能激活active属性.
+- 套路2: 当优化li的时候,常使用`v-for="i in [0,1,2,3,4,5]"`,然后将上面的li只写一个,将数字都改成`i`.
+- 套路3: symbol字体图标引入
+使用:
+```html
+<svg class="icon">
+    <use v-bind:xlink:href="`#icon-${icons[i]}`"></use>
+</svg>
+```
+> 注意:
+1. 在属性中引入js需要用引号, "`#icon-${icons[i]}`" 外面的双引号是html自备的,里面的反撇号是js带的引号,代表字符串.因为当短横线出现在属性中,需要用字符串格式.
+2. 反撇号常与占位符`${}`一起使用,占位符里面是一个函数或者运算,会将其计算的结果作为字符串输出.
+
