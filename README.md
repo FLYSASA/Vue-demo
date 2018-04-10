@@ -342,4 +342,9 @@ main > .preview{
 
 ![分区](https://i.loli.net/2018/04/05/5ac5de86bf2c4.png)
 
+App.vue是主组件,其样式只是总体布局,每个分区的具体样式需要在各个分组件中实现.
+
+- Topbar样式
+引入ele组件: 
+
 
