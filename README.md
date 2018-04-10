@@ -698,3 +698,57 @@ export default {
 > 利用data里面的currentTab数据,完成样式转换
 
 ##### 优化上面代码
+```HTML
+<!-- Editor.vue -->
+    <nav>
+      <ol>
+        <li v-for="i in [0,1,2,3,4,5]" 
+        v-bind:class="{active: currentTab === i}"
+        v-on:click="currentTab = i">
+            <svg class="icon">
+               <use v-bind:xlink:href="`#icon-${icons[i]}`"></use> 
+            </svg>
+        </li>     
+      </ol>
+    </nav>
+```
+
+> 使用v-for遍历将会大大节省代码量,引入i, 在引入svg的时候,使用 
+```v-bind:xlink:href="`#icon-${icons[i]}`"``` 
+
+解析:
+- `#icon-${icons[i]}`是ES6新语法,使用反撇号包裹**字符串**
+- ```${icons[i]}``` ${}是占位符,里面是函数或者是运算式,会自动返回运算结果.
+- 因为存在短横线所以需要用引号包裹 
+
+```js
+export default {
+    data(){
+        return{
+            currentTab: 0,
+            icons: ['2shenfenzhenghaoma','gongwenbao','book','heart','iconjiangbei','cc-phone-handset']
+        }
+    }
+}
+```
+> 解析: 引入数组icons['XXX']
+
+#### 继续优化下面的
+```html
+<ol class="panels">
+    <li v-for="i in [0,1,2,3,4,5]" v-bind:class="{active:currentTab === i}">
+        {{tabs[i]}}
+    </li>
+</ol>
+```
+```js
+export default{
+    data(){
+        return{
+            currentTab: 0,
+            icons: ['xxx']
+        }
+    }
+}
+```
+

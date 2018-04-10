@@ -2,45 +2,21 @@
   <div id="editor">
     <nav>
       <ol>
-        <li v-bind:class="{active:currentTab === 0}" v-on:click="currentTab = 0">
-          <svg class="icon">
-            <use xlink:href="#icon-2shenfenzhenghaoma"></use>
-          </svg>
-        </li>
-        <li v-bind:class="{active:currentTab === 1}" v-on:click="currentTab = 1">
-          <svg class="icon">
-            <use xlink:href="#icon-gongwenbao"></use>
-          </svg>
-        </li>
-        <li v-bind:class="{active:currentTab === 2}" v-on:click="currentTab = 2">
-          <svg class="icon">
-            <use xlink:href="#icon-book"></use>
-          </svg>
-        </li>
-        <li v-bind:class="{active:currentTab === 3}" v-on:click="currentTab = 3">
-          <svg class="icon">
-            <use xlink:href="#icon-heart"></use>
-          </svg>
-        </li>
-        <li v-bind:class="{active:currentTab === 4}" v-on:click="currentTab = 4">
-          <svg class="icon">
-            <use xlink:href="#icon-iconjiangbei"></use>
-          </svg>
-        </li>
-        <li v-bind:class="{active:currentTab === 5}" v-on:click="currentTab = 5">
-          <svg class="icon">
-            <use xlink:href="#icon-cc-phone-handset"></use>
-          </svg>
-        </li>
+        <li v-for="i in [0,1,2,3,4,5]" 
+        v-bind:class="{active: currentTab === i}"
+        v-on:click="currentTab = i">
+            <svg class="icon">
+                <!-- `#icon-${icons[i]}`是ES6语法, ``里面代表要插入的字符串,里面包裹的${}是占位符 -->
+                <!-- ${}可以是任意的 js 表达式（函数或者运算），甚至是另一个模板字符串，会将其计算的结果作为字符串输出。如果模板中需要使用$,{等字符串，则需要进行转义。 -->
+               <use v-bind:xlink:href="`#icon-${icons[i]}`"></use>  <!-- 外面的双引号是html的, 里面的``反撇号是js的(有短横线要用引号包裹)-->
+            </svg>
+        </li>     
       </ol>
     </nav>
     <ol class="panels">
-        <li v-bind:class="{active:currentTab === 0}">tab1</li>
-        <li v-bind:class="{active:currentTab === 1}">tab2</li>
-        <li v-bind:class="{active:currentTab === 2}">tab3</li>
-        <li v-bind:class="{active:currentTab === 3}">tab4</li>
-        <li v-bind:class="{active:currentTab === 4}">tab5</li>
-        <li v-bind:class="{active:currentTab === 5}">tab6</li>
+        <li v-for="i in [0,1,2,3,4,5]" v-bind:class="{active:currentTab === i}">
+            {{tabs[i]}}
+        </li>
     </ol>
  </div>
 </template>
@@ -51,7 +27,9 @@ export default {
   data() {
     //data必须是个函数,返回对象
     return {
-      currentTab: 0
+      currentTab: 0,
+      icons: ['2shenfenzhenghaoma','gongwenbao','book','heart','iconjiangbei','cc-phone-handset'],
+      tabs: ['tab1','tab2','tab3','tab4','tab5','tab6']
     };
   }
 };
