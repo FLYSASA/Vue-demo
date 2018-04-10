@@ -3,6 +3,9 @@
 import Vue from 'vue'
 import App from './App'    //引入主组件
 
+import 'normalize.css'
+import './assets/reset.scss'
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

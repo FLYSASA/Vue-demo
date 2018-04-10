@@ -229,3 +229,117 @@ export default {
 
 分为三大块,所以在App.vue中的`template`应该有三块.
 
+```html
+<template>
+  <div id="app">
+    <Topbar></Topbar>
+    <Editor></Editor>
+    <Preview></Preview>   
+  </div>
+</template>
+
+<script>
+import Topbar from './components/Topbar'   //引入Topbar变量
+import Editor from './components/Editor'
+import Preview from './components/Preview'
+
+export default {
+  name: 'App',
+  components: {    //注册标签名
+    Topbar,Editor,Preview
+  }
+}
+</script>
+```
+
+在分组件`Topbar.vue,Editor.vue,Preview.vue`中定义好各自的template和style.
+> template 直接子元素只能是一个
+
+#### 重置css,如何引入自定义样式scss
+- 在assets文件夹里新建一个reset.scss.写好样式
+- 在main.js中引入,`import './assets/reset.scss'`,因为css格式是scss,这时候提示
+
+![3](https://i.loli.net/2018/04/10/5acc6215a0680.png)
+
+- `npm install -d sass-loader node-sass`
+
+- 下载好后重新运行`npm run dev` 就可以使用scss了.
+
+
+#### reset.css和normalize.css的区别:
+- normalize.css:
+用于统一默认样式,让页面默认页面在不同浏览器上一样.
+- reset.css
+篡改默认样式,更暴力
+
+使用: 
+- 一般normalize引入在reset前面
+- `npm i -s normalize.css`     下载normalize.css
+- 然后在main.js中,直接 `import 'normalize.css'`
+
+
+### 布局三大块,样式修改
+在App.vue中: 
+```js
+<template>
+  <div id="app">
+    <Topbar class="topbar"></Topbar>
+    <main>
+      <Editor class="editor"></Editor>
+      <Preview class="preview"></Preview>   
+    </main>
+
+  </div>
+</template>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.topbar{
+  background: red;
+}
+main{
+  flex-grow: 1;
+  background: green;
+}
+main{                         //左右布局,父容器display: flex;左边固定宽度,右边flex-grow: 1;随宽度自动伸缩
+  display: flex;
+}
+main > .editor{                     
+  width: 20em;
+}
+main > .preview{
+  flex-grow: 1;
+}
+</style>
+```
+
+**布局问题**: 
+- 左右布局,父容器`display: flex;`,子元素左边写死宽度,右边的子元素 `flex-grow: 1;`自动伸缩
+<br/>
+- main占满窗口剩余的高度.两种方法
+方法1: 使用vh
+父容器:  `height: 100vh; display: flex;  flex-direction: column;`
+子元素main: `flex-grow: 1;`
+
+方法2: 使用height: 100%;(兼容性好些)
+给父,爷爷,祖先全部都要height: 100%;
+`#app,body,html{height: 100%; overflow: hidden;}`
+父容器:  ` display: flex;  flex-direction: column;`
+子元素main: `flex-grow: 1;`
+
+> 总结: 
+- 组件名首写字母大写.
+- 外部的css,写在assets文件夹里.
+- 引入normalize.css,直接`npm i -s normalize.css`,然后在App.vue中直接`import`引入.
+
+## 3 按设计稿开发功能样式
+设计稿:
+
+![分区](https://i.loli.net/2018/04/05/5ac5de86bf2c4.png)
+
+
