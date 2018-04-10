@@ -6,6 +6,11 @@ import App from './App'    //引入主组件
 import 'normalize.css'
 import './assets/reset.scss'
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
+Vue.use(ElementUI);
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
