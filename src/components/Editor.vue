@@ -19,7 +19,7 @@
        </li>
       <!-- 工作经历panel EditorWork组件 -->
        <li v-bind:class="{active:currentTab === 1}">
-         <EditorWork v-bind:workExp="workExp"></EditorWork>
+         <EditorWork v-bind:items="workExp" v-bind:labels="{company:'公司',content:'工作内容'}"></EditorWork>  <!-- items和labels都是要传给组件的内容 -->
        </li>
       <!-- 学习经历panel EditorStudy组件 -->
        <li v-bind:class="{active:currentTab === 2}">

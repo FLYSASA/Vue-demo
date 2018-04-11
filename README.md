@@ -1023,3 +1023,41 @@ export default {
   }
 }
 ```
+
+#### panel工作经历组件重构优化
+> commit: [工作经历重构优化](https://github.com/FLYSASA/Vue-demo/commit/f97449885df5f1cf3c73d3d55bc5975d5f3a96f2)
+
+> 优化解析: 
+总结: 如何构建页面? 实则从data里面拿数据items,然后发送给组件去部署.
+```html
+<!-- Editor.vue -->
+ <EditorWork v-bind:items="workExp" v-bind:labels="{company:'公司',content:'工作内容'}"></EditorWork>  
+ <!-- items和labels都是要传给组件的内容 -->
+```
+
+```html
+<!-- EditorWork.vue 分组件修改-->
+    <div v-for="(item,index) in items" class="ct">
+      <el-form-item v-for="key in keys" v-bind:label="labels[key] || key">
+        <el-input v-model="item[key]"></el-input>
+      </el-form-item>
+      ...
+      </div>
+```
+```js
+// EditorWork.vue 分组件修改
+export default {
+  props: ['items','labels'],
+  computed: {
+    keys(){
+      return Object.keys(this.items[0])
+    }
+  },
+  methods: {
+    this.items.push({
+      company: '',
+      content: ''
+    })
+  }
+}
+```

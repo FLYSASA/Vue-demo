@@ -2,17 +2,14 @@
   <div>
     <h2>工作经历</h2>
     <el-form>
-      <div v-for="(work,index) in workExp" class="ct">
-        <el-form-item label="公司">
-          <el-input v-model="work.company"></el-input>
+      <div v-for="(item,index) in items" class="ct">
+        <el-form-item v-for="key in keys" v-bind:label="labels[key] || key">
+          <el-input v-model="item[key]"></el-input>
         </el-form-item>
-        <el-form-item label="工作内容">
-          <el-input v-model="work.content"></el-input>
-        </el-form-item>
-        <el-button class="delete-btn" type="primary" icon="el-icon-delete" v-on:click="delWorkExp(index)"></el-button>
+        <el-button class="delete-btn" type="primary" icon="el-icon-delete" v-on:click="delExp(index)"></el-button>
         <hr> <!-- 分割线 -->
       </div>
-      <el-button class="add-btn" type="primary" v-on:click="addWorkExp">添加</el-button>
+      <el-button class="add-btn" type="primary" v-on:click="addExp">添加</el-button>
     </el-form>
   </div>
 </template>
@@ -20,16 +17,21 @@
 
 <script>
   export default {
-    props: ['workExp'],
+    props: ['items','labels'],
+    computed: {              //即返回计算的结果并赋给变量
+        keys(){
+            return Object.keys(this.items[0])  //取数组第一个对象的key,因为数组中的每个对象的key是一样的,取第一个即可
+        }
+    },
     methods: {
-      addWorkExp() {
-        this.workExp.push({
+      addExp() {
+        this.items.push({
           company: '',
-          content: ''
+          content: '',
         })
       },
-      delWorkExp(index) {
-        this.workExp.splice(index, 1)
+      delExp(index) {
+        this.items.splice(index, 1)
       }
     }
   }
