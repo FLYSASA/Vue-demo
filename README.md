@@ -457,7 +457,7 @@ main {
     background: white;
     box-shadow: 0 0 3px hsla(0, 0, 0, 0.5);
     border-radius: 3px;
-    overflow: hidden;   //因为有圆角,不设置这个的话,会溢出四个角
+    overflow: hidden; //因为有圆角,不设置这个的话,会溢出四个角
   }
 }
 ```
@@ -510,6 +510,7 @@ main {
 ```
 
 在 editor.vue 中,
+
 ```
 <template>
   <div id="editor">
@@ -577,27 +578,28 @@ main {
   }
 ```
 
-设置好样式,然后写交互代码js.
+设置好样式,然后写交互代码 js.
 
 ```html
 <li v-bind:class="{active:true}"></li>   <!-- v-bind:类名="{属性:判断语句true or false}" 不要随便加空格!!!-->
 ```
 
 根据上面衍生出
+
 ```html
 <template>
-<li v-bind:class="{active: currentTab === 0}" v-on:click="{currentTab === 0}"> 
+<li v-bind:class="{active: currentTab === 0}" v-on:click="{currentTab === 0}">
 </template>
 ```
 
 ```js
-export default{
-    data(){
-        return {
-            currentTap: 0   //data的currentTab与li绑定,初始值
-        }
-    }
-}
+export default {
+  data() {
+    return {
+      currentTap: 0 //data的currentTab与li绑定,初始值
+    };
+  }
+};
 ```
 
 ```
@@ -689,51 +691,62 @@ export default {
         &.active{
             display: block;
         }
-      }      
+      }
   }
 }
 </style>
 ```
 
-> 利用data里面的currentTab数据,完成样式转换
+> 利用 data 里面的 currentTab 数据,完成样式转换
 
 ##### 优化上面代码
+
 ```HTML
 <!-- Editor.vue -->
     <nav>
       <ol>
-        <li v-for="i in [0,1,2,3,4,5]" 
+        <li v-for="i in [0,1,2,3,4,5]"
         v-bind:class="{active: currentTab === i}"
         v-on:click="currentTab = i">
             <svg class="icon">
-               <use v-bind:xlink:href="`#icon-${icons[i]}`"></use> 
+               <use v-bind:xlink:href="`#icon-${icons[i]}`"></use>
             </svg>
-        </li>     
+        </li>
       </ol>
     </nav>
 ```
 
-> 使用v-for遍历将会大大节省代码量,引入i, 在引入svg的时候,使用 
-```v-bind:xlink:href="`#icon-${icons[i]}`"``` 
+> 使用 v-for 遍历将会大大节省代码量,引入 i, 在引入 svg 的时候,使用
+> `` v-bind:xlink:href="`#icon-${icons[i]}`" ``
 
 解析:
-- `#icon-${icons[i]}`是ES6新语法,使用反撇号包裹**字符串**
-- ```${icons[i]}``` ${}是占位符,里面是函数或者是运算式,会自动返回运算结果.
-- 因为存在短横线所以需要用引号包裹 
+
+* `#icon-${icons[i]}`是 ES6 新语法,使用反撇号包裹**字符串**
+* `${icons[i]}` ${}是占位符,里面是函数或者是运算式,会自动返回运算结果.
+* 因为存在短横线所以需要用引号包裹
 
 ```js
 export default {
-    data(){
-        return{
-            currentTab: 0,
-            icons: ['2shenfenzhenghaoma','gongwenbao','book','heart','iconjiangbei','cc-phone-handset']
-        }
-    }
-}
+  data() {
+    return {
+      currentTab: 0,
+      icons: [
+        "2shenfenzhenghaoma",
+        "gongwenbao",
+        "book",
+        "heart",
+        "iconjiangbei",
+        "cc-phone-handset"
+      ]
+    };
+  }
+};
 ```
-> 解析: 引入数组icons['XXX']
+
+> 解析: 引入数组 icons['XXX']
 
 #### 继续优化下面的
+
 ```html
 <ol class="panels">
     <li v-for="i in [0,1,2,3,4,5]" v-bind:class="{active:currentTab === i}">
@@ -741,30 +754,171 @@ export default {
     </li>
 </ol>
 ```
+
 ```js
-export default{
-    data(){
-        return{
-            currentTab: 0,
-            icons: ['xxx']
-        }
-    }
-}
+export default {
+  data() {
+    return {
+      currentTab: 0,
+      icons: ["xxx"]
+    };
+  }
+};
 ```
 
 > 总结:
-- 套路1: 刚开始不熟悉的话,可以用最丑的代码实现基本的功能,比如写6个li,每个li都绑定v-bind.
-1. 常用的v-bind的绑定格式: `v-bind:class="{active:保尔值或者表达式运算返回保尔值}"`,前提在scss中定义好active的样式.这样当为真时候就能显示active样式.
-2. 常用的`v-on:click="currenTab = 1"`(点击赋值)  与`v-bind:class="{active:currentTab===1}" ` 搭配使用,这样点击就能激活active属性.
-- 套路2: 当优化li的时候,常使用`v-for="i in [0,1,2,3,4,5]"`,然后将上面的li只写一个,将数字都改成`i`.
-- 套路3: symbol字体图标引入
-使用:
+
+* 套路 1: 刚开始不熟悉的话,可以用最丑的代码实现基本的功能,比如写 6 个 li,每个 li 都绑定 v-bind.
+
+1.  常用的 v-bind 的绑定格式: `v-bind:class="{active:保尔值或者表达式运算返回保尔值}"`,前提在 scss 中定义好 active 的样式.这样当为真时候就能显示 active 样式.
+2.  常用的`v-on:click="currenTab = 1"`(点击赋值) 与`v-bind:class="{active:currentTab===1}"` 搭配使用,这样点击就能激活 active 属性.
+
+* 套路 2: 当优化 li 的时候,常使用`v-for="i in [0,1,2,3,4,5]"`,然后将上面的 li 只写一个,将数字都改成`i`.
+* 套路 3: symbol 字体图标引入使用:
+
 ```html
 <svg class="icon">
     <use v-bind:xlink:href="`#icon-${icons[i]}`"></use>
 </svg>
 ```
-> 注意:
-1. 在属性中引入js需要用引号, "`#icon-${icons[i]}`" 外面的双引号是html自备的,里面的反撇号是js带的引号,代表字符串.因为当短横线出现在属性中,需要用字符串格式.
-2. 反撇号常与占位符`${}`一起使用,占位符里面是一个函数或者运算,会将其计算的结果作为字符串输出.
 
+> 注意:
+
+1.  在属性中引入 js 需要用引号, "`#icon-${icons[i]}`" 外面的双引号是 html 自备的,里面的反撇号是 js 带的引号,代表字符串.因为当短横线出现在属性中,需要用字符串格式.
+2.  反撇号常与占位符`${}`一起使用,占位符里面是一个函数或者运算,会将其计算的结果作为字符串输出.
+
+* 一般可以使用 v-bind 与 active 属性控制元素的显隐
+
+#### 构建 panels
+
+> 需要明确的是 jquery 的思维方式: 以 DOM 为中心
+
+1.  DOM 获取 input value
+2.  ajax 发送数据
+
+> Vue 的 MVVM 模式的思维方式: 以数据为中心
+
+1.  首先在 data 里面构建好需要的数据对象
+2.  MVVM 会帮你将数据映射出 DOM(如: input name; input city;input birth),当用户修改数据,会自动映射到数据对象.我们只需要关心数据对象内容.
+3.  因此构建页面,首先应该是在 data 中构建好内容.
+
+##### 个人信息栏
+
+```html
+<ol class="panels">
+      <li v-for="i in [0,1,2,3,4,5]" v-bind:class="{active:currentTab === i}">
+        <h2>个人信息</h2>
+        <el-form v-bind:submit="onSubmit">    <!-- 监听submit事件,触发后回调onSubmit -->
+          <el-form-item label="姓名">
+            <el-input v-model="profile.name"></el-input>
+          </el-form-item>
+          <el-form-item label="城市">
+            <el-input v-model="profile.city"></el-input>
+          </el-form-item>
+          <el-form-item label="出生年月">
+            <el-input v-model="profile.birth"></el-input>
+          </el-form-item>
+        </el-form>
+      </li>
+</ol>
+```
+
+为了获取到提交内容,刚开始我们在<el-form>使用`v-bind:submit="onSubmit"`,当监听到 submit 事件时触发 onSubmit 函数
+
+```js
+export default {
+  data(){
+    return{
+      currentTab: 0,
+      icons: ['2shenfenzhenghaoma', 'gongwenbao', 'book', 'heart', 'iconjiangbei', 'cc-phone-handset'],
+      profile: {
+        name: '',
+        city: '',
+        birth: ''
+      }
+    }
+  },
+  methods: {
+    onSubmit(){
+      console.log(this.profile)
+    }
+  }
+}
+```
+
+> 但是发现,因为没有提交按钮所以根本无法触发submit事件. 如何获取到用户输入的this.profile呢?我们换种方式:
+
+```html
+<ol class="panels">
+      <li v-for="i in [0,1,2,3,4,5]" v-bind:class="{active:currentTab === i}">
+        <h2>个人信息</h2>
+        <el-form>    
+          <el-form-item label="姓名">
+            <el-input v-model="profile.name"></el-input>
+          </el-form-item>
+          <el-form-item label="城市">
+            <el-input v-model="profile.city"></el-input>
+          </el-form-item>
+          <el-form-item label="出生年月">
+            <el-input v-model="profile.birth"></el-input>
+          </el-form-item>
+        </el-form>
+      </li>
+</ol>
+```
+html去掉监听
+
+```js
+export default {
+  data(){
+    return {
+      currentTab: 0,
+      icons: ['2shenfenzhenghaoma', 'gongwenbao', 'book', 'heart', 'iconjiangbei', 'cc-phone-handset'],
+      profile: {
+        name: '',
+        city: '',
+        birth: ''
+      }
+    }
+  },
+  created(){     //组件被创建时的回调函数
+    console.log(this.profile)
+    setTimeout(()=>{           //此处使用箭头函数是因为,防止this变为window
+      console.log(this.profile)    
+    },5000)
+  }
+}
+```
+
+> 注意methods对应的是一个对象,里面有很多函数方法,格式是:
+```js
+methods: {
+  f1(){
+
+  },
+  f2(){
+
+  }
+}
+```
+> 而created是一个钩子函数(当组件创建时的回调函数),格式是:
+```js
+created(){
+  f1(){}
+}
+
+或者
+
+created: function(){
+  f1(){}
+}
+```
+
+改完效果如下: 
+
+![8](https://i.loli.net/2018/04/11/5acd656437513.png)
+
+
+获取到信息后得知,用户输入的信息是和data里面的profile双向绑定的.
+
+##### 修改panels样式
