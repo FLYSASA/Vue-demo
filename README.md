@@ -921,4 +921,60 @@ created: function(){
 
 获取到信息后得知,用户输入的信息是和data里面的profile双向绑定的.
 
-##### 修改panels样式
+##### 修改panels样式 工作经历
+```html
+  <li v-bind:class="{active:currentTab === 1}">
+    <h2>工作经历</h2>
+    <el-form>
+      <div v-for="(work,index) in workExp">
+        <el-form-item label="公司">
+          <el-input v-model="work.company"></el-input>
+        </el-form-item>
+        <el-form-item label="工作内容">
+          <el-input v-model="work.content"></el-input>
+        </el-form-item>
+        <el-button type="primary" icon="el-icon-delete" v-on:click="delWorkExp(index)"></el-button>
+        <hr>    <!-- 分割线 -->
+      </div>
+      <el-button type="primary" v-on:click="addWorkExp">添加</el-button>
+    </el-form>
+  </li>
+```
+
+```js
+export default {
+  data(){
+    currentTab: 0,
+    icons:['2shenfenzhenghaoma', 'gongwenbao', 'book', 'heart', 'iconjiangbei', 'cc-phone-handset'],
+    profile: {
+        name: '',
+        city: '',
+        birth: ''
+    },
+    //工作经历数据,因为有多段经历,所以是数组
+    workExp: [{company:'',content:''}]
+  },
+  methods: {
+    addWorkExp(){
+      this.workExp.push({company:'',content:''})
+    },
+    delWorkExp(index){
+      this.workExp.splice(index,1)
+    }
+  }
+}
+```
+
+> 解析:
+- 使用`<el-form>`组件,在其里面使用`<div v-for=""></div>` 
+- 绑定的之前使用`div v-for`遍历 数组`workExp`, `v-for="(work,index) in workExp"`,这样就能将数组中的每一个对象添加至页面. index是当前遍历的work的索引值. vue语法`v-for="(item,index) in items"`
+- v-for遍历写好后,就可以写`<el-form-item>`和`<el-input>`.
+`<el-form-item>`: 负责标签标题, 加入`label="标题名字"`即可
+`<el-input>`: 在标题内部,输入框. 需要绑定数据 使用`v-model="work.company"` 因为此时遍历项是work.所以用`work.company`的形式.
+- 写 删除按钮,使用`<el-button>`
+需要注意的是,因为删除按钮是随着添加内容也同步增加,所以需要写在`div v-for`遍历里面:
+`<el-button type="primary" icon="el-icon-delete" v-on:click="delWorkExp(index)"></el-button>`
+绑定`v-on:click="事件"`,这里需要传入index,保证传入参数给`delWorkExp(index)`函数.
+- 因为 添加按钮只有一个,所以不需要写在`v-for`里面,写在div外面即可.
+`<el-button type="primary" v-on:click="addWorkExp">添加</el-button>`
+同样绑定点击事件`addWorkExp`,直接给`workExp`push数据即可.
