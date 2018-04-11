@@ -1135,3 +1135,8 @@ computed: {
 </div>  
 ```
 
+#### addExp函数微调
+> commit: [addExp](https://github.com/FLYSASA/Vue-demo/commit/4f65a736cfe27cb399f263a52cf777ddd314fb41)
+> 注意`el-form-item v-for="key in keys" v-bind:label="labels[key] || key" v-bind:key="key">`中,
+`v-bind:key="key"`不写的话,会警告,这里是引入计算属性数组中的key
+

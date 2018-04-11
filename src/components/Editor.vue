@@ -19,11 +19,13 @@
        </li>
       <!-- 工作经历panel EditorWork组件 -->
        <li v-bind:class="{active:currentTab === 1}">
-         <EditorWork v-bind:items="workExp" v-bind:labels="{company:'公司',content:'工作内容'}"></EditorWork>  <!-- items和labels都是要传给组件的内容 -->
+         <h2>工作经历</h2>
+         <EditorArray v-bind:items="workExp" v-bind:labels="{company:'公司',content:'工作内容'}"></EditorArray>  <!-- items和labels都是要传给组件的内容 -->
        </li>
       <!-- 学习经历panel EditorStudy组件 -->
        <li v-bind:class="{active:currentTab === 2}">
-         <EditorStudy v-bind:items="studyExp" v-bind:labels="{school:'学校',duration:'学习时间',degree:'学位'}"></EditorStudy>
+         <h2>学习经历</h2>
+         <EditorArray v-bind:items="studyExp" v-bind:labels="{school:'学校',duration:'学习时间',degree:'学位'}"></EditorArray>
        </li>
     </ol>
   </div>
@@ -33,10 +35,9 @@
 
 <script>
   import EditorProfile from './EditorProfile'
-  import EditorWork from './EditorWork'
-  import EditorStudy from './EditorStudy'
+  import EditorArray from './EditorArray'
   export default {
-    components: { EditorProfile,EditorWork,EditorStudy },    //注册标签
+    components: { EditorProfile,EditorArray },    //注册标签
     data() {
       //data必须是个函数,返回对象
       return {

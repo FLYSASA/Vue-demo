@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h2>工作经历</h2>
     <el-form>
       <div v-for="(item,index) in items" class="ct">
         <el-form-item v-for="key in keys" v-bind:label="labels[key] || key" v-bind:key="key">
