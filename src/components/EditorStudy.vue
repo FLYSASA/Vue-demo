@@ -3,14 +3,8 @@
     <h2>学习经历</h2>
     <el-form>
       <div v-for="(item,index) in items" class="ct">
-        <el-form-item label="学校">
-          <el-input v-model="item.school"></el-input>
-        </el-form-item>
-        <el-form-item label="学习时间">
-          <el-input v-model="item.duration"></el-input>
-        </el-form-item>
-        <el-form-item label="学位">
-          <el-input v-model="item.degree"></el-input>
+        <el-form-item v-for="key in keys" v-bind:label="labels[key] || key">
+          <el-input v-model="item[key]"></el-input>
         </el-form-item>
         <el-button class="delete-btn" type="primary" icon="el-icon-delete" v-on:click="delExp(index)"></el-button>
         <hr> <!-- 分割线 -->
@@ -22,7 +16,12 @@
 
 <script>
 export default {
-  props: ['items'],
+  computed: {
+      keys(){
+          return Object.keys(this.items[0])
+      }
+  },
+  props: ['items','labels'],
   methods: {
       addExp(){
           this.items.push({

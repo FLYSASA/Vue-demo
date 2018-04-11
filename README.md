@@ -966,7 +966,7 @@ export default {
 ```
 
 > 解析:
-- 使用`<el-form>`组件,在其里面使用`<div v-for=""></div>` 
+- 使用`<el-form-item>`组件,在其里面使用`<div v-for=""></div>` 
 - 绑定的之前使用`div v-for`遍历 数组`workExp`, `v-for="(work,index) in workExp"`,这样就能将数组中的每一个对象添加至页面. index是当前遍历的work的索引值. vue语法`v-for="(item,index) in items"`
 - v-for遍历写好后,就可以写`<el-form-item>`和`<el-input>`.
 `<el-form-item>`: 负责标签标题, 加入`label="标题名字"`即可
@@ -1025,7 +1025,7 @@ export default {
 ```
 
 #### panel工作经历组件重构优化
-> commit: [工作经历重构优化](https://github.com/FLYSASA/Vue-demo/commit/f97449885df5f1cf3c73d3d55bc5975d5f3a96f2)
+> commit: [工作经历重构优化](https://github.com/FLYSASA/Vue-demo/commit/5f8011b7f8feee83a25fca951f44a89f05d7a337)
 
 > 优化解析: 
 总结: 如何构建页面? 实则从data里面拿数据items,然后发送给组件去部署.
@@ -1035,6 +1035,9 @@ export default {
  <!-- items和labels都是要传给组件的内容 -->
 ```
 
+
+
+
 ```html
 <!-- EditorWork.vue 分组件修改-->
     <div v-for="(item,index) in items" class="ct">
@@ -1042,10 +1045,10 @@ export default {
         <el-input v-model="item[key]"></el-input>
       </el-form-item>
       ...
-      </div>
+    </div>
 ```
 ```js
-// EditorWork.vue 分组件修改
+// EditorWork.vue 分组件js修改
 export default {
   props: ['items','labels'],
   computed: {
@@ -1054,10 +1057,81 @@ export default {
     }
   },
   methods: {
-    this.items.push({
-      company: '',
-      content: ''
-    })
+    addExp(){
+      this.items.push({
+        company: '',
+        content: ''
+      })
+    },
+    delExp(){
+      this.items.splice(index,1)
+    }
   }
 }
 ```
+
+#### 修改目的: 不写死页面构建内容,如label="公司"等等
+重构步骤: 
+1. 首先明确的是,构建工作经历页面,首先在data添加页面数据,如这里的: `workExp: [{company:'',content:''}],`
+2. data构建好后,将`data workExp`发送给分组件, 在该组件中部署的分组件标签 
+`<EditorWork v-bind:items="workExp"/>`发送data给分组件.  **通过v-bind发送数据变量**,同时还需要发送标题
+`v-bind:labels="{company:'公司',content:'工作内容'}`
+
+```html
+<EditorWork v-bind:items="workExp" v-bind:labels="{company:'公司',content:'工作内容'}"></EditorWork>  
+```
+
+3. 分组件中接收发送的变量items和labels.
+使用: 
+```js
+//EditorWork.vue
+export default { 
+  props: ['items','labels'],      //允许使用传过来的变量items和labels.
+  computed: {           //computed用于计算返回结果给变量
+    keys(){
+      return Object.keys(this.items[0])             //这里借用Object的keys属性获取到数组items的第一个对象的key属性. (这里是company和content,因为其它对象都key一样所以获取到第一项[0]即可)
+    }
+  }
+}
+```
+4. 将获取到的items和items数据中的keys对象(属性集合)部署到页面上
+```html
+<!-- EditorWork.vue -->
+<div v-for="(item,index) in items">
+  <el-form-item v-for="key in keys" v-bind:label="labels[key] || key">  <!-- 设置标题如:公司,通过遍历获取到的属性集合,这里是{company,content},首先是company,给label设置label="labels[company]即传过来的'公司',||key为保底值,如果没有传labels直接使用company-->
+    <el-input v-model="item[key]"></el-input>
+  </el-form-item>
+</div>  
+```
+
+5. 完.
+
+
+#### 重构总结:
+- Vue以数据为中心,所以首先写上页面data数据.
+- 将数据在引入的分组件标签中,通过 `v-bind:items="workExp"` 和 `v-bind:labels="{company: '公司',content:'工作内容'}"`将数据发送给分组件部署.
+- 构建 
+```js
+export default {}
+```
+- 使用发送过来的items和labels. 需要通过props(**数组,里面是变量字符串**)引入这两个变量`props: ['items','labels']`
+- 获取items中的属性. 引入之后使用 computed(**对象,里面是函数**)计算获取 items中对象的属性. 借用`Object.keys`方法获取
+```js
+computed: {
+  keys(){
+    return Object.keys(this.items[0])
+  }
+}
+``` 
+- 部署.
+1. 首先遍历数组items.
+2. 在label标签中遍历keys,通过v-bind绑定label
+3. 通过v-model给 input绑定itemp[key]
+```html
+<div v-for="(item,index) in items">
+    <el-form-item v-for="key in keys" v-bind:label="labels[key] || key">
+      <el-input v-model="item[key]"></el-input>
+    </el-form-item>
+</div>  
+```
+

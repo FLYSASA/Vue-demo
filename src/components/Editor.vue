@@ -23,7 +23,7 @@
        </li>
       <!-- 学习经历panel EditorStudy组件 -->
        <li v-bind:class="{active:currentTab === 2}">
-         <EditorStudy v-bind:items="studyExp"></EditorStudy>
+         <EditorStudy v-bind:items="studyExp" v-bind:labels="{school:'学校',duration:'学习时间',degree:'学位'}"></EditorStudy>
        </li>
     </ol>
   </div>
