@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>{{title}}</h2>
     <el-form>
       <div v-for="(item,index) in items" class="ct">
         <el-form-item v-for="key in keys" v-bind:label="labels[key] || key" v-bind:key="key">
@@ -16,7 +17,7 @@
 
 <script>
   export default {
-    props: ['items','labels'],
+    props: ['items','labels','title'],
     computed: {              //即返回计算的结果并赋给变量
         keys(){
             return Object.keys(this.items[0])  //取数组第一个对象的key,因为数组中的每个对象的key是一样的,取第一个即可
