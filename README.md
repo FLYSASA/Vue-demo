@@ -1140,3 +1140,25 @@ computed: {
 > 注意`el-form-item v-for="key in keys" v-bind:label="labels[key] || key" v-bind:key="key">`中,
 `v-bind:key="key"`不写的话,会警告,这里是引入计算属性数组中的key
 
+#### 完善panel
+> commit: [完善panel](https://github.com/FLYSASA/Vue-demo/commit/3f79f55b91549f41fff73201cf7738b0556ec345)
+
+> 注意细节: 组件的title
+如: `<EditorArray v-bind:items="awards" v-bind:labels="{name: '奖励详情'}" title="获奖情况"></EditorArray>`
+或者 `v-bind:title="`获奖情况`"`   //使用v-bind引入即js引入,需要在双引号里使用单引号引入字符串.外面双引号是html的,里面的单引号代表js的字符串,如果是变量则不需要单引号.
+
+在EditorArray.vue中,
+```html
+<template>
+  <div>
+    <h2>
+      {{title}}
+    </h2>
+  </div>
+</template>
+export default {
+  props: ['title']    //引入变量
+}
+```
+
+### 构建preview页面

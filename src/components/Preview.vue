@@ -1,8 +1,14 @@
 <template>
   <div id="preview">
-      我是preview
+      
   </div>
 </template>
+
+<script>
+export default {
+  
+}
+</script>
 
 <style>
  #preview{

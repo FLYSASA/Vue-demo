@@ -15,36 +15,36 @@
     <ol class="panels">
       <!-- 个人信息panel EditorProfile组件 -->
       <li v-bind:class="{active:currentTab === 0}">
-          <EditorProfile v-bind:profile="profile"></EditorProfile>   <!-- 使用v-bind绑定变量data中的profile -->
+          <EditorProfile v-bind:profile="resume.profile"></EditorProfile>   <!-- 使用v-bind绑定变量data中的profile -->
        </li>
       <!-- 工作经历panel EditorArray组件-->
       <li v-bind:class="{active:currentTab === 1}">
-        <EditorArray v-bind:items="workExp" v-bind:labels="{company:'公司',content:'工作内容'}" title="工作经历"></EditorArray>  <!-- items和labels都是要传给组件的内容 -->
+        <EditorArray v-bind:items="resume.workExp" v-bind:labels="{company:'公司',content:'工作内容'}" title="工作经历"></EditorArray>  <!-- items和labels都是要传给组件的内容 -->
       </li>
       <!-- 学习经历panel-->
       <li v-bind:class="{active:currentTab === 2}">
-        <EditorArray v-bind:items="studyExp" v-bind:labels="{school:'学校',duration:'学习时间',degree:'学位'}"  title="学习经历"></EditorArray>
+        <EditorArray v-bind:items="resume.studyExp" v-bind:labels="{school:'学校',duration:'学习时间',degree:'学位'}"  title="学习经历"></EditorArray>
       </li>
       <!-- 项目经历panel -->
       <li v-bind:class="{active:currentTab === 3}">
-        <EditorArray v-bind:items="projects" v-bind:labels="{name:'项目名称',content:'项目内容'}"  title="项目经历"></EditorArray>  <!-- items和labels都是要传给组件的内容 -->
+        <EditorArray v-bind:items="resume.projects" v-bind:labels="{name:'项目名称',content:'项目内容'}"  title="项目经历"></EditorArray>  <!-- items和labels都是要传给组件的内容 -->
       </li>
       <!-- 获奖情况 -->
       <li v-bind:class="{active:currentTab === 4}">
-        <EditorArray v-bind:items="awards" v-bind:labels="{name: '奖励详情'}" title="获奖情况"></EditorArray>
+        <EditorArray v-bind:items="resume.awards" v-bind:labels="{name: '奖励详情'}" title="获奖情况"></EditorArray>
       </li>
       <!-- 联系方式 -->
       <li v-bind:class="{active:currentTab === 5}">
         <h2>个人信息</h2>
         <el-form>
           <el-form-item label="QQ">
-            <el-input v-model="contacts.qq"></el-input>
+            <el-input v-model="resume.contacts.qq"></el-input>
           </el-form-item>
           <el-form-item label="邮箱">
-            <el-input v-model="contacts.email"></el-input>
+            <el-input v-model="resume.contacts.email"></el-input>
           </el-form-item>
           <el-form-item label="手机">
-            <el-input v-model="contacts.phone"></el-input>
+            <el-input v-model="resume.contacts.phone"></el-input>
           </el-form-item>
         </el-form>
       </li>
@@ -57,26 +57,14 @@
   import EditorProfile from './EditorProfile'
   import EditorArray from './EditorArray'
   export default {
+    props: ['resume'],
     components: { EditorProfile,EditorArray },    //注册标签
     data() {
       //data必须是个函数,返回对象
       return {
         currentTab: 0,
         icons: ['2shenfenzhenghaoma', 'gongwenbao', 'book', 'heart', 'iconjiangbei', 'cc-phone-handset'],
-        profile: {
-          name: '',
-          city: '',
-          birth: ''
-        },
-        workExp: [{company:'',content:''}],
-        studyExp: [{school: '',duration: '',degree: ''}],
-        projects: [{name:'',content:''}],
-        awards: [{name:''}],
-        contacts: {
-          qq: '',
-          email: '',
-          phone: '',
-        }
+        
       }
     },
     methods: {

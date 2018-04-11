@@ -2,8 +2,8 @@
   <div id="app">
     <Topbar class="topbar"></Topbar>
     <main>
-      <Editor class="editor"></Editor>
-      <Preview class="preview"></Preview>   
+      <Editor v-bind:resume="resume" class="editor"></Editor>  <!-- 给Editor发送data resume -->
+      <Preview v-bind:resume="resume" class="preview"></Preview>   
     </main>
 
   </div>
@@ -15,6 +15,26 @@ import Editor from "./components/Editor";
 import Preview from "./components/Preview";
 
 export default {
+  data(){
+    return {
+      resume: {
+        profile: {
+          name: '',
+          city: '',
+          birth: ''
+        },
+        workExp: [{company:'',content:''}],
+        studyExp: [{school: '',duration: '',degree: ''}],
+        projects: [{name:'',content:''}],
+        awards: [{name:''}],
+        contacts: {
+          qq: '',
+          email: '',
+          phone: '',
+        }
+      }
+    }
+  },
   name: "App",
   components: {
     //我的组件中出现的其它组件.也是ES6语法.
