@@ -994,3 +994,30 @@ export default {
 http://js.jirengu.com/qejusekoda/1/edit
 
 在vue中,为了体现对新手的友好,不管用`v-on:click="fn"`还是`v-on:click="fn()"`都是可以的,vue会自动帮助调用.
+
+
+#### 将个人信息panel组件化
+> commit: [个人信息panel组件化](https://github.com/FLYSASA/Vue-demo/commit/8fbe52765f83aa4d9e449c08f82cf239f760975c)
+
+> 组件化要点:
+1. 新建组件`EditorProfile.vue`文件,首写字母大写.
+2. 写上`<template>`标签,然后将需要组件化的div,剪切过来.
+3. 写`<script>`标签,然后引入需要的变量:
+```js
+export default{
+  props: ['profile']   //profile是需要的变量
+} 
+```
+4. 在原组件中,引入该分离组件.
+```html
+<EditorProfile v-bind:profile="profile"></EditorProfile>
+```
+```js
+import EditorProfile from './EditorProfile'
+export default {
+  components: { EditorProfile },       //组件标签注册
+  data(){
+    ...
+  }
+}
+```
