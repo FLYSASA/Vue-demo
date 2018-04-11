@@ -1162,3 +1162,8 @@ export default {
 ```
 
 ### 构建preview页面
+
+首先: 
+将变量储存至App.vue,并传入Editor,Preview
+#### 
+> commit: [变量存储,传入Editor和Preview](https://github.com/FLYSASA/Vue-demo/commit/0f2bdcdd10857f9055d8701b7392cde0f99b76d4)
