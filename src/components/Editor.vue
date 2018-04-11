@@ -27,20 +27,21 @@
           </el-form-item>
         </el-form>
        </li>
+
        <li v-bind:class="{active:currentTab === 1}">
          <h2>工作经历</h2>
          <el-form>
-           <div v-for="(work,index) in workExp">
+           <div v-for="(work,index) in workExp" class="ct">
              <el-form-item label="公司">
                <el-input v-model="work.company"></el-input>
              </el-form-item>
              <el-form-item label="工作内容">
                <el-input v-model="work.content"></el-input>
              </el-form-item>
-             <el-button type="primary" icon="el-icon-delete" v-on:click="delWorkExp(index)"></el-button>            
+             <el-button class="delete-btn" type="primary" icon="el-icon-delete" v-on:click="delWorkExp(index)"></el-button>            
              <hr>    <!-- 分割线 -->
            </div>
-           <el-button type="primary" v-on:click="addWorkExp">添加</el-button>
+           <el-button class="add-btn" type="primary" v-on:click="addWorkExp">添加</el-button>
          </el-form>
        </li>
     </ol>
@@ -102,15 +103,33 @@
   }
   .panels{
     flex: 1;                  /* 因为父容器是flex,子元素panels默认会缩,设置flex: 1;即可占满剩余空间. 滚动条居最右边 */
-      >li{                    /* 注意这里的li每次点击只显示一个 */
-        padding: 32px;
-        display: none;
-        height: 100%;         /* 滚动高度和父亲一样高,overflow: auto;需要设置滚动的高度,这里是height: 100%;即在父容器高度范围类滚动 */
-        overflow: auto;
-        &.active{
-            display: block;
-        }
-      }      
+    .ct{
+      position: relative;
+      .delete-btn{
+        border: none;
+        background: rgb(247, 102, 102);
+        padding: 5px 10px;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+    >li{                    /* 注意这里的li每次点击只显示一个 */
+      position: relative;
+      padding: 32px;
+      display: none;
+      height: 100%;         /* 滚动高度和父亲一样高,overflow: auto;需要设置滚动的高度,这里是height: 100%;即在父容器高度范围类滚动 */
+      overflow: auto;
+      &.active{
+          display: block;
+      }
+      .add-btn{
+        padding: 10px 15px;
+        margin-top: 10px;
+        position: absolute;
+        right: 32px;
+      }
+    }      
   }
 }
 </style>

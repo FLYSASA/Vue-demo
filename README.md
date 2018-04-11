@@ -979,4 +979,18 @@ export default {
 `<el-button type="primary" v-on:click="addWorkExp">添加</el-button>`
 同样绑定点击事件`addWorkExp`,直接给`workExp`push数据即可.
 
-#### 调整工作经历样式
+#### 调整panels样式
+> commit: [调整panels样式](https://github.com/FLYSASA/Vue-demo/commit/3ba5bb6495755472d39e605ea39a9407a2f1559a)
+
+> 解析: 
+- 当左右布局,父容器display: flex;左边宽度固定,右边宽度自动压缩. 可以设置右边元素flex:1,拉满整个剩余空间.
+- 父容器高度固定,内部子元素如果想滚动,可以设置子元素高度 `height: 100%;` 最大高度为父容器的高度,设置`overflow: auto;`出现滚动条,在父容器高度内滚动.
+
+
+
+> 知识点:
+在原生js,html中: 给button绑定事件 `<button onclick="fn()">`  ,onclick需要等于一个函数调用.否则无法执行.
+如例:
+http://js.jirengu.com/qejusekoda/1/edit
+
+在vue中,为了体现对新手的友好,不管用`v-on:click="fn"`还是`v-on:click="fn()"`都是可以的,vue会自动帮助调用.
