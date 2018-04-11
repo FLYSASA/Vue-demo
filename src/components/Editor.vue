@@ -13,7 +13,7 @@
       </ol>
     </nav>
     <ol class="panels">
-      <li v-for="i in [0,1,2,3,4,5]" v-bind:class="{active:currentTab === i}">
+      <li v-bind:class="{active:currentTab === 0}">
         <h2>个人信息</h2>
         <el-form>
           <el-form-item label="姓名">
@@ -26,6 +26,22 @@
             <el-input v-model="profile.birth"></el-input>
           </el-form-item>
         </el-form>
+       </li>
+       <li v-bind:class="{active:currentTab === 1}">
+         <h2>工作经历</h2>
+         <el-form>
+           <div v-for="(work,index) in workExp">
+             <el-form-item label="公司">
+               <el-input v-model="work.company"></el-input>
+             </el-form-item>
+             <el-form-item label="工作内容">
+               <el-input v-model="work.content"></el-input>
+             </el-form-item>
+             <el-button type="primary" icon="el-icon-delete" v-on:click="delWorkExp(index)"></el-button>            
+             <hr>    <!-- 分割线 -->
+           </div>
+           <el-button type="primary" v-on:click="addWorkExp">添加</el-button>
+         </el-form>
        </li>
     </ol>
   </div>
@@ -40,23 +56,32 @@
       return {
         currentTab: 0,
         icons: ['2shenfenzhenghaoma', 'gongwenbao', 'book', 'heart', 'iconjiangbei', 'cc-phone-handset'],
-        tabs: ['tab1', 'tab2', 'tab3', 'tab4', 'tab5', 'tab6'],
         profile: {
           name: '',
           city: '',
           birth: ''
-        }
-      };
+        },
+        workExp: [{company:'',content:''}]
+      }
     },
-    created() { //created组件被创建后的回调
-
+    methods: {
+      addWorkExp(){
+        this.workExp.push({company:'',content:''})
+      },
+      delWorkExp(index){
+        this.workExp.splice(index,1)
+      }
     }
+
   }
 
 </script>
 
 
 <style lang="scss">
+.el-input {
+  width: 500px;
+}
 #editor {
   display: flex;
   nav {
@@ -80,6 +105,7 @@
   }
   .panels{
       >li{
+        padding: 32px;
         display: none;
         &.active{
             display: block;
