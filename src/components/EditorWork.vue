@@ -3,7 +3,7 @@
     <h2>工作经历</h2>
     <el-form>
       <div v-for="(item,index) in items" class="ct">
-        <el-form-item v-for="key in keys" v-bind:label="labels[key] || key">
+        <el-form-item v-for="key in keys" v-bind:label="labels[key] || key" v-bind:key="key">
           <el-input v-model="item[key]"></el-input>
         </el-form-item>
         <el-button class="delete-btn" type="primary" icon="el-icon-delete" v-on:click="delExp(index)"></el-button>
@@ -25,10 +25,11 @@
     },
     methods: {
       addExp() {
-        this.items.push({
-          company: '',
-          content: '',
-        })
+        const empty = {} 
+        this.keys.map((key)=>{   //map遍历keys(计算属性返回数组)数组,将获取到的key与空对象的[key]绑定,并赋值value空字符串
+            empty[key] = ''
+        }),
+        this.items.push(empty)
       },
       delExp(index) {
         this.items.splice(index, 1)

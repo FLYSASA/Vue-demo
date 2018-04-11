@@ -3,7 +3,7 @@
     <h2>学习经历</h2>
     <el-form>
       <div v-for="(item,index) in items" class="ct">
-        <el-form-item v-for="key in keys" v-bind:label="labels[key] || key">
+        <el-form-item v-for="key in keys" v-bind:label="labels[key] || key" v-bind:key="key">
           <el-input v-model="item[key]"></el-input>
         </el-form-item>
         <el-button class="delete-btn" type="primary" icon="el-icon-delete" v-on:click="delExp(index)"></el-button>
@@ -24,11 +24,11 @@ export default {
   props: ['items','labels'],
   methods: {
       addExp(){
-          this.items.push({
-              school: '',
-              duration: '',
-              degree: ''
+          const empty = {}
+          this.keys.map((key)=>{
+              empty[key] = ''
           })
+          this.items.push(empty)
       },
       delExp(index){
           this.items.splice(index,1)
