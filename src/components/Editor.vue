@@ -17,9 +17,13 @@
       <li v-bind:class="{active:currentTab === 0}">
           <EditorProfile v-bind:profile="profile"></EditorProfile>   <!-- 使用v-bind绑定变量data中的profile -->
        </li>
-      <!-- 个人信息panel EditorWork组件 -->
+      <!-- 工作经历panel EditorWork组件 -->
        <li v-bind:class="{active:currentTab === 1}">
          <EditorWork v-bind:workExp="workExp"></EditorWork>
+       </li>
+      <!-- 学习经历panel EditorStudy组件 -->
+       <li v-bind:class="{active:currentTab === 2}">
+         <EditorStudy v-bind:studyExp="studyExp"></EditorStudy>
        </li>
     </ol>
   </div>
@@ -29,9 +33,10 @@
 
 <script>
   import EditorProfile from './EditorProfile'
-  import EditorWork from './EditorWork.vue'
+  import EditorWork from './EditorWork'
+  import EditorStudy from './EditorStudy'
   export default {
-    components: { EditorProfile,EditorWork },    //注册标签
+    components: { EditorProfile,EditorWork,EditorStudy },    //注册标签
     data() {
       //data必须是个函数,返回对象
       return {
@@ -42,7 +47,8 @@
           city: '',
           birth: ''
         },
-        workExp: [{company:'',content:''}]
+        workExp: [{company:'',content:''}],
+        studyExp: [{school: '',duration: '',degree: ''}]
       }
     },
     methods: {
