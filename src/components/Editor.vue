@@ -13,19 +13,9 @@
       </ol>
     </nav>
     <ol class="panels">
+      <!-- 个人信息panel EditorProfile组件 -->
       <li v-bind:class="{active:currentTab === 0}">
-        <h2>个人信息</h2>
-        <el-form>
-          <el-form-item label="姓名">
-            <el-input v-model="profile.name"></el-input>
-          </el-form-item>
-          <el-form-item label="城市">
-            <el-input v-model="profile.city"></el-input>
-          </el-form-item>
-          <el-form-item label="出生年月">
-            <el-input v-model="profile.birth"></el-input>
-          </el-form-item>
-        </el-form>
+          <EditorProfile v-bind:profile="profile"></EditorProfile>   <!-- 使用v-bind绑定变量data中的profile -->
        </li>
 
        <li v-bind:class="{active:currentTab === 1}">
@@ -51,7 +41,9 @@
 
 
 <script>
+  import EditorProfile from './EditorProfile'
   export default {
+    components: { EditorProfile },    //注册标签
     data() {
       //data必须是个函数,返回对象
       return {
@@ -73,7 +65,6 @@
         this.workExp.splice(index,1)
       }
     }
-
   }
 
 </script>
