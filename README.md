@@ -978,3 +978,5 @@ export default {
 - 因为 添加按钮只有一个,所以不需要写在`v-for`里面,写在div外面即可.
 `<el-button type="primary" v-on:click="addWorkExp">添加</el-button>`
 同样绑定点击事件`addWorkExp`,直接给`workExp`push数据即可.
+
+#### 调整工作经历样式

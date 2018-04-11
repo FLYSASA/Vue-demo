@@ -79,9 +79,6 @@
 
 
 <style lang="scss">
-.el-input {
-  width: 500px;
-}
 #editor {
   display: flex;
   nav {
@@ -104,9 +101,12 @@
     }
   }
   .panels{
-      >li{
+    flex: 1;                  /* 因为父容器是flex,子元素panels默认会缩,设置flex: 1;即可占满剩余空间. 滚动条居最右边 */
+      >li{                    /* 注意这里的li每次点击只显示一个 */
         padding: 32px;
         display: none;
+        height: 100%;         /* 滚动高度和父亲一样高,overflow: auto;需要设置滚动的高度,这里是height: 100%;即在父容器高度范围类滚动 */
+        overflow: auto;
         &.active{
             display: block;
         }
