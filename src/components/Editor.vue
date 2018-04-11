@@ -17,22 +17,9 @@
       <li v-bind:class="{active:currentTab === 0}">
           <EditorProfile v-bind:profile="profile"></EditorProfile>   <!-- 使用v-bind绑定变量data中的profile -->
        </li>
-
+      <!-- 个人信息panel EditorWork组件 -->
        <li v-bind:class="{active:currentTab === 1}">
-         <h2>工作经历</h2>
-         <el-form>
-           <div v-for="(work,index) in workExp" class="ct">
-             <el-form-item label="公司">
-               <el-input v-model="work.company"></el-input>
-             </el-form-item>
-             <el-form-item label="工作内容">
-               <el-input v-model="work.content"></el-input>
-             </el-form-item>
-             <el-button class="delete-btn" type="primary" icon="el-icon-delete" v-on:click="delWorkExp(index)"></el-button>            
-             <hr>    <!-- 分割线 -->
-           </div>
-           <el-button class="add-btn" type="primary" v-on:click="addWorkExp">添加</el-button>
-         </el-form>
+         <EditorWork v-bind:workExp="workExp"></EditorWork>
        </li>
     </ol>
   </div>
@@ -42,8 +29,9 @@
 
 <script>
   import EditorProfile from './EditorProfile'
+  import EditorWork from './EditorWork.vue'
   export default {
-    components: { EditorProfile },    //注册标签
+    components: { EditorProfile,EditorWork },    //注册标签
     data() {
       //data必须是个函数,返回对象
       return {
@@ -58,12 +46,7 @@
       }
     },
     methods: {
-      addWorkExp(){
-        this.workExp.push({company:'',content:''})
-      },
-      delWorkExp(index){
-        this.workExp.splice(index,1)
-      }
+
     }
   }
 
