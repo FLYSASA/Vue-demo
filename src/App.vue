@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <Topbar class="topbar"></Topbar>
+  <div id="app" v-bind:class="{previewMode:previewMode}">   <!-- 如果previewMode为true,则由class="previewMode" -->
+    <Topbar class="topbar" v-on:preview="preview"></Topbar>   <!-- v-on监听preview传过来的事件 -->
     <main>
       <Editor v-bind:resume="resume" class="editor"></Editor>  <!-- 给Editor发送data resume -->
       <Preview v-bind:resume="resume" class="preview"></Preview>   
@@ -15,8 +15,14 @@ import Editor from "./components/Editor";
 import Preview from "./components/Preview";
 
 export default {
+  methods: {
+    preview(){
+     this.previewMode = true
+    }
+  },
   data(){
     return {
+      previewMode: false,    //用到的变量一定要在data里写一遍,否则无定义
       resume: {
         profile: {
           name: '',
@@ -89,6 +95,9 @@ main {
     border-radius: 3px;
     overflow: hidden;
   }
+}
+.previewMode > #topbar{   //不能用.topbar,优先级太低
+  display: none;
 }
 </style>
 
