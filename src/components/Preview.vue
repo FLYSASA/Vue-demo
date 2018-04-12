@@ -21,6 +21,34 @@
           </li>
         </ul>
       </section>
+      <section v-if="filter(resume.studyExp).length > 0">
+        <h2>学习经历</h2>
+        <ul>
+          <li v-for="study in filter(resume.studyExp)">
+            {{study.school}}
+            {{study.duration}}
+            {{study.degree}}
+          </li>
+        </ul>
+      </section>
+      <section v-if="filter(resume.awards).length > 0">
+        <h2>获奖情况</h2>
+        <ul>
+          <li v-for="award in filter(resume.awards)">
+            {{award.name}}
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h2>个人信息</h2>
+        <ul>
+          <li>
+            {{resume.contacts.qq || '请填写qq' }}  
+            {{resume.contacts.email || '请填写邮箱' }}
+            {{resume.contacts.phone || '请填写手机'}}
+          </li>
+        </ul>
+      </section>
   </div>
 </template>
 
