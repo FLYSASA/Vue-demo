@@ -1312,3 +1312,5 @@ methods: {
 4. 如果链接无法预览,找到config/index.js中的 assetsPubulicPath 改为 assetPubulickPath: ''.即可
 
 5. 重新`npm run build`
+
+6. 重新上传至 github,根据dist里面的index.html,生成预览链接
