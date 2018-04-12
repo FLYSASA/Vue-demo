@@ -25,7 +25,7 @@ export default {
   },
   data(){
     return {
-      previewMode: false,    //用到的变量一定要在data里写一遍,否则无定义
+      previewMode: false,    //用到的变量一定要在data里写一遍,否则会报错 没有defined
       resume: {
         profile: {
           name: '',

@@ -1173,3 +1173,122 @@ export default {
 > commit: [展示preview](https://github.com/FLYSASA/Vue-demo/commit/d4ef91712671644b00de1459bbbbd93e6bbb8aaf)
 
 > commit: [添加预览按钮展示](https://github.com/FLYSASA/Vue-demo/commit/28b2445eb5fecdaeaa80c760fc01cb606110bf55)
+
+> commit: [取消预览](https://github.com/FLYSASA/Vue-demo/commit/7bbe5f0885244fd931ae5791599724afdc7e65af)
+
+### 总结:
+预览按钮绑定事件流程: 
+1. 在Tobar.vue分组件里,绑定preview事件
+```html 
+<el-button v-on:click="preview"></el-button> 
+```
+2. 将绑定的事件传出到主组件
+```js
+export default {
+  methods: {
+    preview(){
+      this.$emit('preview')  //将事件变量传出
+    }
+  }
+}
+```
+
+3. 主组件接收事件变量
+```html
+<Topbar v-on:preview="preview"></Topbar>
+```
+4. 主组件定义preview事件
+```js
+export default {
+  methods: {
+    preview(){
+      previewMode = true
+    }
+  }
+}
+```
+
+### 归纳: 
+data传递和事件传递的区别:
+- data传递 使用v-bind
+1. data数据最后写在主组件里面,这样分组件才能方便调用.如果定义在分组件内,其他分组件无法获取到.
+2. data传递使用 `v-bind:变量名="传给到分组件的名字"`,哪个组件需要变量,就写在主组件内的分组件标签里面.
+3. 分组件接收data数据,需要定义 `props(数组): ['变量名']`
+4. 最后在需要的html标签内使用该变量: `v-bind:自定义变量名字="传入的变量"`或直接使用 {{变量名}}
+
+- 分组件事件传递 使用v-on
+1. 分组件中的某个按钮绑定事件 `v-on:click="事件名"`
+2. 分组件定义这个事件并传出事件: 
+```js
+export default {
+  methods: {
+    事件名(){
+      this.$emit('事件名')
+    }
+  }
+}
+```
+3. 主组件获取到事件, 在对应的分组件标签内 `v-on:自定义事件名2="事件名"`   双引号里面是获取到的事件.
+
+4. 主组件定义事件:
+```js
+methods: {
+  事件名2(){
+    触发的事件
+  }
+}
+```
+
+
+### 如何设计某个组件显示,其它组件隐藏?
+步骤:
+1. 在分组件中某个按钮绑定事件,触发隐藏
+2. 将该事件发送给主组件,主组件接收事件并定义事件.
+```js
+methods: {
+  事件(){
+    变量 = true
+  }
+}
+```
+3. 在data中声明该变量
+```js
+export default {
+  data(){
+    return{
+      this.变量: false     //默认为false,即不存在.不声明会defined报错
+    }
+  }
+}
+```
+4. 给主组件的父容器绑定 `class为变量的属性`
+```html
+<!-- 变量为保尔值,'变量名是字符串' -->
+<div id="app" v-bind:class="{'变量名' : 变量}">   
+```
+
+5. 当点击分组件的按钮时, #app拥有class="变量名".
+然后设置css属性:
+```css
+.变量名 #topbar{
+  display: none;
+}
+.变量名 #editor{
+  display: none;
+}
+```
+
+6. 完.
+
+### 如何恢复隐藏组件的显示?
+接上:
+7. 在主组件中定义一个按钮,绑定 `v-on:click="exitPreview"`
+
+8. 定义事件
+```js
+methods: {
+  exitPreview(){
+    this.变量: false     //#app  不存在class="变量"
+  }
+}
+```
