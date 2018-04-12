@@ -1305,8 +1305,10 @@ methods: {
 1. 运行: 
 `npm run build`
 
-2. 在.gitignore里面删除`/dist/`
+1. 在.gitignore里面删除`/dist/`
 
 3. 上传至github
 
-4. 
+4. 如果链接无法预览,找到config/index.js中的 assetsPubulicPath 改为 assetPubulickPath: ''.即可
+
+5. 重新`npm run build`
