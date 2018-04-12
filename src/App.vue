@@ -5,7 +5,7 @@
       <Editor v-bind:resume="resume" class="editor"></Editor>  <!-- 给Editor发送data resume -->
       <Preview v-bind:resume="resume" class="preview"></Preview>   
     </main>
-
+    <el-button id="exitpreview" v-on:click="exitPreview">退出预览</el-button>
   </div>
 </template>
 
@@ -18,6 +18,9 @@ export default {
   methods: {
     preview(){
      this.previewMode = true
+    },
+    exitPreview(){
+      this.previewMode = false
     }
   },
   data(){
@@ -96,8 +99,24 @@ main {
     overflow: hidden;
   }
 }
-.previewMode > #topbar{   //不能用.topbar,优先级太低
+.previewMode > #topbar{   //当有previewMode属性,隐藏.不能用.topbar,优先级太低
   display: none;
+}
+.previewMode #editor{
+  display: none;
+}
+.previewMode #preview{
+  max-width: 600px;   //这里需要用max-width最大宽度,否则上面的flex-grow: 1;会自动拉伸.
+  margin: 32px auto;
+}
+#exitpreview{
+  display: none;
+}
+.previewMode #exitpreview{
+  display: inline-block;   //不设置这个会无法定位
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
 }
 </style>
 

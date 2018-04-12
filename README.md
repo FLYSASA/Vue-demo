@@ -1167,3 +1167,9 @@ export default {
 将变量储存至App.vue,并传入Editor,Preview
 #### 
 > commit: [变量存储,传入Editor和Preview](https://github.com/FLYSASA/Vue-demo/commit/0f2bdcdd10857f9055d8701b7392cde0f99b76d4)
+
+> commit: [不展示用户未填写项](https://github.com/FLYSASA/Vue-demo/commit/123162573b45af256beb72bcfc7815bbe087b0d4)
+
+> commit: [展示preview](https://github.com/FLYSASA/Vue-demo/commit/d4ef91712671644b00de1459bbbbd93e6bbb8aaf)
+
+> commit: [添加预览按钮展示](https://github.com/FLYSASA/Vue-demo/commit/28b2445eb5fecdaeaa80c760fc01cb606110bf55)
