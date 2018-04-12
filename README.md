@@ -1292,3 +1292,21 @@ methods: {
   }
 }
 ```
+
+9. 这样父容器不存在该属性,因此该属性下的子属性也无效化,重新显示.
+
+
+#### 修复bug
+> commit: [修复删除最后的内容再添加bug,preview展示完善](https://github.com/FLYSASA/Vue-demo/commit/8534692a7cc973bb319399ff1ea9838d553d6f05)
+
+
+
+## github上预览
+1. 运行: 
+`npm run build`
+
+2. 在.gitignore里面删除`/dist/`
+
+3. 上传至github
+
+4. 
