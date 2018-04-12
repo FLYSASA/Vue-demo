@@ -4,7 +4,22 @@
       <p>{{resume.profile.city || '请填写城市' }} | {{resume.profile.birth || '请填写出生年月'}}</p>
       <hr>
       <section v-if="filter(resume.projects).length > 0">
-        {{filter(resume.projects)}}
+        <h2>项目经历</h2>
+        <ul>
+          <li v-for="project in filter(resume.projects)">
+            {{project.name}}
+            {{project.content}}
+          </li>
+        </ul>
+      </section>
+      <section v-if="filter(resume.workExp).length > 0">
+        <h2>工作经历</h2>
+        <ul>
+          <li v-for="work in filter(resume.workExp)">
+            {{work.company}}
+            {{work.content}}
+          </li>
+        </ul>
       </section>
   </div>
 </template>
